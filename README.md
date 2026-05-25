@@ -33,7 +33,7 @@ El dataset original se encuentra disponible y actualizado de forma pública en:
 
 El sistema procesa archivos de anomalías de temperatura global con la siguiente estructura de campos:
 
-- Annual.csv
+- annual.csv
 
 | Field | Type | Description |
 | :--- | :--- | :--- |
@@ -42,12 +42,12 @@ El sistema procesa archivos de anomalías de temperatura global con la siguiente
 | **Mean** | number | Average global mean temperature anomalies in degrees Celsius relative to a base period. GISTEMP base period: 1951-1980. GCAG base period: 20th century average. |
 ---
 
-- Montly.csv
+-  monthly.csv
 
--| Field | Type | Description |
+| Field | Type | Description |
 | :--- | :--- | :--- |
 | **Source** | string | Data provider identifier: GISTEMP (NASA Goddard Institute for Space Studies) or GCAG (UK Met Office HadCRUT5). |
-| **Year** | year | YYYY-MM |
+| **Year** |  date (YYYY-MM) | YYYY-MM |
 | **Mean** | number | Average global mean temperature anomalies in degrees Celsius relative to a base period. GISTEMP base period: 1951-1980. GCAG base period: 20th century average. |
 ---
 
