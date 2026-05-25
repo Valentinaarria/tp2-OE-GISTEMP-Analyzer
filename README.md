@@ -30,9 +30,8 @@ El dataset original se encuentra disponible y actualizado de forma pública en:
 ## 🚀 Instrucciones de Ejecución Básicas
 Para clonar este proyecto en tu entorno local, ejecutá los siguientes comandos en tu terminal:
 
-```bash
-# 1. Clonar el repositorio
-git clone [https://github.com/Valentinaarria/tp2-organizacion-empresarial.git](https://github.com/Valentinaarria/tp2-organizacion-empresarial.git)
+    # 1. Clonar el repositorio
+    git clone https://github.com/Valentinaarria/tp2-OE-GISTEMP-Analyzer.git
 
-# 2. Ingresar a la carpeta del proyecto
-cd tp2-organizacion-empresarial
+    # 2. Ingresar a la carpeta del proyecto
+    cd tp2-OE-GISTEMP-Analyzer
