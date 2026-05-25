@@ -1,0 +1,20 @@
+# ==========================================
+# Archivos y carpetas autogeneradas
+# ==========================================
+.ipynb_checkpoints/
+_pycache_/
+*.pyc
+
+# ==========================================
+# Archivos de datos pesados
+# ==========================================
+*.xlsx
+*.xls
+*.dat
+
+# ==========================================
+# Entornos virtuales y configuraciones locales
+# ==========================================
+.env
+.venv
+env/
