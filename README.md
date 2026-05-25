@@ -19,7 +19,11 @@ Para este análisis se seleccionó un escenario enfocado en el cambio climático
 * **Contenido:** Datos de temperatura promedio global.
 * **Frecuencia:** Registros detallados de manera mensual y anual.
 * **Formato:** Archivo de texto plano separado por comas (`.csv`).
-* **Origen:** Datos oficiales provenientes del análisis climático **GISTEMP** (NASA Goddard Institute for Space Studies).
+* **Origen:** El dataset versionado en este proyecto consolida registros climáticos provenientes de dos fuentes oficiales y de referencia global:
+1.  **GISTEMP** (NASA Goddard Institute for Space Studies): Enfocado en las anomalías de la temperatura superficial global utilizando como período base los años 1951-1980.
+2.  **GCAG** (Global Climate Anomalies / UK Met Office HadCRUT5 / NOAA GlobalTemp): Provee estimaciones consolidadas de anomalías térmicas relativas al promedio global del siglo XX.
+
+Ambas fuentes conviven dentro de la estructura de archivos y están correctamente tipificadas en el Diccionario de Datos para garantizar un análisis comparativo robusto.
 
 ### 🌐 Acceso al Dataset
 El dataset original se encuentra disponible y actualizado de forma pública en:
@@ -29,12 +33,24 @@ El dataset original se encuentra disponible y actualizado de forma pública en:
 
 El sistema procesa archivos de anomalías de temperatura global con la siguiente estructura de campos:
 
+- Annual.csv
+
 | Field | Type | Description |
 | :--- | :--- | :--- |
 | **Source** | string | Data provider identifier: GISTEMP (NASA Goddard Institute for Space Studies) or GCAG (UK Met Office HadCRUT5). |
 | **Year** | year | YYYY |
 | **Mean** | number | Average global mean temperature anomalies in degrees Celsius relative to a base period. GISTEMP base period: 1951-1980. GCAG base period: 20th century average. |
 ---
+
+- Montly.csv
+
+-| Field | Type | Description |
+| :--- | :--- | :--- |
+| **Source** | string | Data provider identifier: GISTEMP (NASA Goddard Institute for Space Studies) or GCAG (UK Met Office HadCRUT5). |
+| **Year** | year | YYYY-MM |
+| **Mean** | number | Average global mean temperature anomalies in degrees Celsius relative to a base period. GISTEMP base period: 1951-1980. GCAG base period: 20th century average. |
+---
+
 
 ## 🚀 Instrucciones de Ejecución Básicas
 Para clonar este proyecto en tu entorno local, ejecutá los siguientes comandos en tu terminal:
