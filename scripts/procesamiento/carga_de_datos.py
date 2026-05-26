@@ -1,8 +1,6 @@
-import sys
-from pathlib import Path
 import pandas as pd
 
-from scripts.procesamiento.rutas import obtener_ruta_relativa
+from .rutas import obtener_ruta_relativa
 
 # =====================================================================
 # CONSTANTES DE CONFIGURACIÓN Y LOGGING
@@ -22,17 +20,31 @@ def cargar_csv(nombre_archivo, carpeta_origen=CARPETA_DEFAULT):
     ruta_relativa = obtener_ruta_relativa(carpeta_origen, nombre_archivo)
 
     print(f"{LOG_DEBUG}Intentando abrir el archivo mediante ruta relativa: '{ruta_relativa}'")
+import pandas as pd
 
+def cargar_csv(ruta_relativa):
     try:
         # Pandas recibe la ruta relativa y busca desde el directorio de ejecución
         df = pd.read_csv(ruta_relativa)
         print(f"{LOG_DEBUG}Archivo leído correctamente usando rutas relativas.")
         return df
 
-    except FileNotFoundError:
-        print(f"\n{LOG_ERROR}No se encontró el archivo en la ruta relativa: '{ruta_relativa}'")
-        return None
+    except FileNotFoundError as e:
+        print(f"\n{LOG_ERROR}No se encontró el archivo en la ruta: '{ruta_relativa}'")
+        raise e  
+
+    except pd.errors.EmptyDataError as e:
+        print(f"\n{LOG_ERROR}El archivo existe pero está completamente vacío: '{ruta_relativa}'")
+        raise e  
+
+    except pd.errors.ParserError as e:
+        print(f"\n{LOG_ERROR}Error de parseo: El CSV está corrupto o mal formateado.")
+        raise e
+
+    except PermissionError as e:
+        print(f"\n{LOG_ERROR}Error de permisos: No tenés acceso de lectura al archivo.")
+        raise e
 
     except Exception as e:
         print(f"\n{LOG_ERROR}Ocurrió un error inesperado al leer el archivo: {e}")
-        return None
+        raise e
