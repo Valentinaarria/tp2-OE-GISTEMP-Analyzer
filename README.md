@@ -165,7 +165,7 @@ El proyecto cuenta con una sólida cobertura de pruebas automatizadas que asegur
 1. TestCargaYRutado (test_carga_datos.py): Valida la construcción de rutas relativas sin importar el Sistema Operativo, la lectura exitosa de archivos CSV hacia estructuras DataFrame de Pandas y el lanzamiento controlado de excepciones FileNotFoundError.
 2. TestProcesamientoDatos (test_procesamiento.py): Asegura la fidelidad matemática de las funciones de negocio: ordenamiento del Top 5, agrupamientos promedio por décadas, ventanas móviles de tendencia y segmentación mensual estacional.
 3. TestExportaciones (test_exportaciones.py): Verifica que los reportes de datos se escriban correctamente en disco y que Matplotlib logre renderizar y guardar de forma segura los archivos PNG sin bloquear la consola ni generar logs ruidosos innecesarios.
-
+4. TestPipelineEndToEnd (test_e2e.py): Ejecuta una prueba de integración de punta a punta (*E2E*). Enciende el pipeline completo mediante la función `main()`, intercepta temporalmente la consola y realiza un control de inventario físico sobre la carpeta `resultados/` para garantizar que todos los reportes y gráficos existan y contengan datos válidos (peso mayor a 0 bytes).
 ### Cómo ejecutar los tests:
 Para lanzar la suite completa en modo detallado (verbose) y verificar que todas las aserciones pasen en verde de manera limpia y silenciosa, ejecutá desde la raíz:
 ```sh
