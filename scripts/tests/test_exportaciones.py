@@ -44,9 +44,7 @@ class TestExportaciones(unittest.TestCase):
     """Clase que agrupa las pruebas de persistencia de datos y creacion de archivos PNG."""
 
     def setUp(self):
-        """
-        Preparamos un DataFrame generico en memoria y la carpeta temporal de salida.
-        """
+        """Preparamos un DataFrame generico en memoria y la carpeta temporal de salida."""
         self.carpeta_resultados_test = CARPETA_EXPORT_TEST
         os.makedirs(self.carpeta_resultados_test, exist_ok=True)
 
@@ -57,39 +55,25 @@ class TestExportaciones(unittest.TestCase):
         })
 
     def tearDown(self):
-        """
-        Limpiamos todos los archivos y estructuras generadas tras cada prueba de forma segura.
-        """
+        """Limpiamos todos los archivos y estructuras generadas tras cada prueba de forma segura."""
         if os.path.exists(self.carpeta_resultados_test):
             shutil.rmtree(self.carpeta_resultados_test)
 
     def test_generar_csv(self):
-        """
-        Verifica que el archivo CSV se guarde en disco correctamente y preserve la integridad de los datos.
-        """
-        print("\n\n [TEST]: test_generar_csv")
+        """Verifica que el archivo CSV se guarde en disco correctamente y preserve la integridad de los datos."""
         nombre_archivo = CSV_PRUEBA
         generar_csv(self.df_mock, nombre_archivo, self.carpeta_resultados_test)
 
         ruta_esperada = os.path.join(self.carpeta_resultados_test, nombre_archivo)
         existe_archivo = os.path.exists(ruta_esperada)
+        self.assertTrue(existe_archivo, msg=f"El archivo esperado '{nombre_archivo}' no se creo fisicamente en el disco.")
 
-        df_leido = pd.read_csv(ruta_esperada) if existe_archivo else pd.DataFrame()
-        longitud_obtenida = len(df_leido)
-        valor_obtenido = df_leido.iloc[1][COL_Y_BASE] if longitud_obtenida > 0 else None
-
-        print(f"Esperado: Archivo existe = True | Filas = 3 | Valor indice [1] = 2.5")
-        print(f"Obtenido: Archivo existe = {existe_archivo} | Filas = {longitud_obtenida} | Valor indice [1] = {valor_obtenido}")
-
-        self.assertTrue(existe_archivo)
-        self.assertEqual(longitud_obtenida, 3)
-        self.assertEqual(valor_obtenido, 2.5)
+        df_leido = pd.read_csv(ruta_esperada)
+        self.assertEqual(len(df_leido), 3, msg="La cantidad de filas registradas en el CSV exportado no coincide con el DataFrame origen.")
+        self.assertEqual(df_leido.iloc[1][COL_Y_BASE], 2.5, msg="Los valores internos del CSV sufrieron alteraciones durante la persistencia.")
 
     def test_generar_grafico_barras(self):
-        """
-        Verifica que se procesen los datos y se genere fisicamente el archivo PNG del grafico de barras.
-        """
-        print("\n\n[TEST]: test_generar_grafico_barras")
+        """Verifica que se procesen los datos y se genere fisicamente el archivo PNG del grafico de barras."""
         nombre_archivo = PNG_BARRAS
 
         generar_grafico_barras(
@@ -106,18 +90,10 @@ class TestExportaciones(unittest.TestCase):
         )
 
         ruta_esperada = os.path.join(self.carpeta_resultados_test, nombre_archivo)
-        existe_archivo = os.path.exists(ruta_esperada)
-
-        print(f"Esperado: Archivo '{nombre_archivo}' creado = True")
-        print(f"Obtenido: Archivo creado = {existe_archivo}")
-
-        self.assertTrue(existe_archivo)
+        self.assertTrue(os.path.exists(ruta_esperada), msg=f"El grafico de barras '{nombre_archivo}' no fue generado en el directorio de destino.")
 
     def test_generar_grafico_lineal(self):
-        """
-        Verifica que se cree de forma correcta el archivo fisico PNG correspondiente al grafico lineal.
-        """
-        print("\n\n[TEST]: test_generar_grafico_lineal")
+        """Verifica que se cree de forma correcta el archivo fisico PNG correspondiente al grafico lineal."""
         nombre_archivo = PNG_LINEAS
 
         generar_grafico_lineal(
@@ -131,18 +107,10 @@ class TestExportaciones(unittest.TestCase):
         )
 
         ruta_esperada = os.path.join(self.carpeta_resultados_test, nombre_archivo)
-        existe_archivo = os.path.exists(ruta_esperada)
-
-        print(f"Esperado: Archivo '{nombre_archivo}' creado = True")
-        print(f"Obtenido: Archivo creado = {existe_archivo}")
-
-        self.assertTrue(existe_archivo)
+        self.assertTrue(os.path.exists(ruta_esperada), msg=f"El grafico lineal '{nombre_archivo}' no fue renderizado ni guardado en disco.")
 
     def test_generar_grafico_tendencia(self):
-        """
-        Verifica que se genere el archivo PNG comparativo cruzando los datos anuales con la media movil.
-        """
-        print("\n\n[TEST]: test_generar_grafico_tendencia")
+        """Verifica que se genere el archivo PNG comparativo cruzando los datos anuales con la media movil."""
         nombre_archivo = PNG_TENDENCIA
 
         generar_grafico_tendencia(
@@ -156,12 +124,7 @@ class TestExportaciones(unittest.TestCase):
         )
 
         ruta_esperada = os.path.join(self.carpeta_resultados_test, nombre_archivo)
-        existe_archivo = os.path.exists(ruta_esperada)
-
-        print(f"Esperado: Archivo '{nombre_archivo}' creado = True")
-        print(f"Obtenido: Archivo creado = {existe_archivo}")
-
-        self.assertTrue(existe_archivo)
+        self.assertTrue(os.path.exists(ruta_esperada), msg=f"El grafico de tendencia historica '{nombre_archivo}' no se guardo en la ruta estipulada.")
 
 
 if __name__ == '__main__':
