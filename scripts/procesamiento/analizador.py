@@ -3,8 +3,9 @@ Modulo principal de analisis climatico y visualizacion de anomalias termicas.
 Procesa datos anuales y mensuales generando reportes CSV y graficos PNG.
 """
 
-import matplotlib as plt
-plt.use('Agg')
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.pyplot as plt
 import os
 
 from .carga_de_datos import cargar_csv
@@ -216,8 +217,8 @@ def main():
     generar_csv(promedio_mensual, CSV_MENSUAL, CARPETA_RESULTADOS)
 
   # Mapeo de nombres cortos para la etiqueta estacional a partir del valor de mes
-     mes_a_nombre = {f"{i:02d}": nombre for i, nombre in enumerate(NOMBRES_MESES, start=1)}
-     promedio_mensual[COL_LABEL_MES] = promedio_mensual[COL_MES_PROP].map(mes_a_nombre)
+    mes_a_nombre = {f"{i:02d}": nombre for i, nombre in enumerate(NOMBRES_MESES, start=1)}
+    promedio_mensual[COL_LABEL_MES] = promedio_mensual[COL_MES_PROP].map(mes_a_nombre)
 
 
     generar_grafico_barras(
